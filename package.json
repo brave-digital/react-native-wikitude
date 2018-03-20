@@ -12,6 +12,7 @@
 	  "bridge"
 	],
 	"author": "brave-digital",
-	"license": "MIT"
+	"license": "MIT",
+	"repository": "github:brave-digital/react-native-wikitude"
   }
   
