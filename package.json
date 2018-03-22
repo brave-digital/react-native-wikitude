@@ -4,15 +4,19 @@
 	"description": "Bridge between Wikitude and React Native",
 	"main": "index.js",
 	"scripts": {
-	  "test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [
-	  "wikitude",
-	  "AR",
-	  "bridge"
+		"wikitude",
+		"AR",
+		"augmented reality",
+		"react native",
+		"react"
 	],
 	"author": "brave-digital",
 	"license": "MIT",
-	"repository": "github:brave-digital/react-native-wikitude"
-  }
-  
+	"repository": "github:brave-digital/react-native-wikitude",
+	"dependencies": {
+		"npm": "^5.7.1"
+	}
+}
