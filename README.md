@@ -20,16 +20,36 @@ After that completes, you will need to do additional steps for each platform you
 
 	Copy the `wikitudesdk` folder from the `node-modules/react-native-wikitude/android` folder into your project's `android` folder: 
 
+	On Mac / Linux: 
+	
 	```bash
 	cd YourReactNativeProject
 	cp -R ./node_modules/react-native-wikitude/android/wikitudesdk ./android/wikitudesdk
+	```
+	
+	or on Windows:
+	
+	```dos
+	cd YourReactNativeProject
+	xcopy node_modules\react-native-wikitude\android\wikitudesdk android\wikitudesdk /E
 	```
 
 2. And then in your `android/settings.gradle` file, modify the existing `include ':react-native-wikitude'` line to also include the `wikitudesdk`:
 	```gradle
 	include ':wikitudesdk', ':react-native-wikitude'
 	```
-
+	
+3. In your `android/build.gradle` file, modify the minimum SDK version to at least version 19:
+	```gradle
+	android {
+		defaultConfig {
+			...
+			minSdkVersion 19
+			...
+		}
+	```
+4. In your `android/app/src/main/AndroidManifest.xml` file, remove the `android:allowBackup="false"` attribute from the `application` node. If you want to set allowBackup, follow the method [here](https://github.com/OfficeDev/msa-auth-for-android/issues/21).
+	
 And thats it. The `react-native link` command should have taken care of installing the react-native-wikitude bridge into your project so you shouldnt need to modify your gradle files.
 
 ### iOS
