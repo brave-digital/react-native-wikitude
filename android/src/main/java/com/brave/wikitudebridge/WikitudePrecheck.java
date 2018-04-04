@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.wikitude.architect.ArchitectView;
 import com.wikitude.common.permission.PermissionManager;
@@ -22,6 +23,9 @@ public class WikitudePrecheck extends Activity {
 	private boolean hasGeolocation = false;
 	private boolean hasImageRecognition = false;
 	private boolean hasInstantTracking = false;
+	private boolean intentActive = false;
+
+	protected static final String TAG = "WikitudePrecheck";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,7 @@ public class WikitudePrecheck extends Activity {
 
 			@Override
 			public void permissionsDenied(String[] deniedPermissions) {
+				Log.e(TAG, "Unable to start AR - Required permissions were denied.");
 				Toast.makeText(WikitudePrecheck.this, "The following permissions are required to enable an AR experience: " + Arrays.toString(deniedPermissions), Toast.LENGTH_SHORT).show();
 			}
 
@@ -83,6 +88,11 @@ public class WikitudePrecheck extends Activity {
 
 	private void startWikitudeIntent()
 	{
+		if (this.intentActive) {
+			Log.w(TAG, "startWikitudeIntent - Failed because the intent is already active!");
+			return;
+		}
+
 		final Intent intent = new Intent(this, WikitudeActivity.class);
 
 		intent.putExtra(WikitudeActivity.EXTRAS_KEY_AR_URL, this.architectWorldURL);
@@ -93,6 +103,8 @@ public class WikitudePrecheck extends Activity {
 
 		//launch activity
 		this.startActivityForResult(intent, 0xe110);
+		this.intentActive = true;
+		Log.i(TAG, "Starting WikitudeIntent.");
 	}
 
 	@Override
@@ -100,9 +112,12 @@ public class WikitudePrecheck extends Activity {
 	{
 		super.onActivityResult(aRequestCode, aResultCode, aData);
 
+		Log.i(TAG, "Got Activity Result - Request: " + Integer.toHexString(aRequestCode) + " Result: "+ Integer.toHexString(aResultCode));
+
 		if (aRequestCode == 0xe110)
 		{
 			this.finish();
+			this.intentActive = false;
 		}
 
 	}
