@@ -18,6 +18,7 @@ public class WikitudePrecheck extends Activity {
 	private PermissionManager mPermissionManager;
 
 	private String architectWorldURL = "";
+	private String sdkKey = "";
 	private boolean hasGeolocation = false;
 	private boolean hasImageRecognition = false;
 	private boolean hasInstantTracking = false;
@@ -35,6 +36,7 @@ public class WikitudePrecheck extends Activity {
 		this.hasGeolocation = extras.getBoolean(WikitudeActivity.EXTRAS_KEY_HAS_GEO, false);
 		this.hasImageRecognition = getIntent().getExtras().getBoolean(WikitudeActivity.EXTRAS_KEY_HAS_IR, false);
 		this.hasInstantTracking = getIntent().getExtras().getBoolean(WikitudeActivity.EXTRAS_KEY_HAS_INSTANT, false);
+		this.sdkKey = getIntent().getExtras().getString(WikitudeActivity.EXTRAS_KEY_SDK_KEY);
 
 
 		String[] permissions = this.hasGeolocation ?
@@ -87,6 +89,7 @@ public class WikitudePrecheck extends Activity {
 		intent.putExtra(WikitudeActivity.EXTRAS_KEY_HAS_GEO, this.hasGeolocation);
 		intent.putExtra(WikitudeActivity.EXTRAS_KEY_HAS_IR, this.hasImageRecognition);
 		intent.putExtra(WikitudeActivity.EXTRAS_KEY_HAS_INSTANT, this.hasInstantTracking);
+		intent.putExtra(WikitudeActivity.EXTRAS_KEY_SDK_KEY, this.sdkKey);
 
 		//launch activity
 		this.startActivityForResult(intent, 0xe110);

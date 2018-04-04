@@ -20,6 +20,7 @@
 @property (nonatomic, strong) WTArchitectView               *architectView;
 @property (nonatomic, weak) WTNavigation                    *architectWorldNavigation;
 @property (nonatomic, retain) NSString                        *url;
+@property (nonatomic, retain) NSString                        *sdkkey;
 @property (nonatomic, weak) id<ARViewControllerDelegate> delegate;
 
 @end

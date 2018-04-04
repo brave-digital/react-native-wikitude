@@ -22,5 +22,6 @@ project.xcworkspace
 # Android/IntelliJ
 #
 .idea
+.settings
 local.properties
 *.iml

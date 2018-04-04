@@ -75,7 +75,7 @@ RCT_EXPORT_MODULE()
     }
 }
 
-RCT_EXPORT_METHOD(startAR:(NSString *)url hasGeolocation:(BOOL *)geo hasImageRecognition:(BOOL *)image hasInstantTracking:(BOOL *)instant )
+RCT_EXPORT_METHOD(startAR:(NSString *)url hasGeolocation:(BOOL *)geo hasImageRecognition:(BOOL *)image hasInstantTracking:(BOOL *)instant wikitudeSDKKey:(NSString *)sdkkey)
 {
 
     
@@ -91,6 +91,7 @@ RCT_EXPORT_METHOD(startAR:(NSString *)url hasGeolocation:(BOOL *)geo hasImageRec
         
         ARViewController *arView = [[ARViewController alloc] init];
         arView.url = url;
+        arView.sdkkey = sdkkey;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[self getRootVC] presentViewController:arView animated:YES completion:nil];

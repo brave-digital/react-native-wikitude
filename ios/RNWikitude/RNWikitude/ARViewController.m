@@ -40,7 +40,7 @@
         self.architectView.debugDelegate = self;
         
         /* Use the -setLicenseKey method to unlock all Wikitude SDK features that you bought with your license. */
-        [self.architectView setLicenseKey:@"M5bom7Zv4yI8eHToQNIwo6c/Qy/7Nk+V5BcZC2bH1CBwX83SMjMCPAdExA8ramU7/6Fqlp3kPcO4absuRcEZ+FlKlylyEmf7aaO+GLPze2XJDQlScXqLtn+VGBNY9qBQKvCmEVcFRensndHmr3FOuRh2/Dpe8Yn7Yebw0A6ztXZTYWx0ZWRfX53NIAQ8lfx1aU9vm8Xyg+ek4RREpU3ieyLf9DGWkkKKP5dloeTzWhg3KXFsphBhSvht8jh94F0IW3UPCwj7Yfdln3My12wgIXxFZjglh0VIc1QuZZkqsxNV4oq0pg2etxtI+iKNtCddcER0ly13uia3B5zOC88adj0K3iRxDW8Tgb/cHG90QqUYYN4C6H3MEyMlKHb50s07d8lv9IjAgioDmFXWbNY60445JRN08j2dDwa8rc5PgJIf7e5CnfH9AS3YISFO+P51jacFm2msH3l0RYpViKAe8NEXKaTrVSesfLNUfMQW1gBfYIu85TanDWJgs30o0bOHCNoMVV9XBjpxM5fIu7LEHKPJzF0GK/4AJlqTvkey2fv480Lv7O0hzojnhNwNx1PNbyJCxWYiMllFF10jn/ftQTaNyXZcAvGRomccN43m38sKSkgze1x2h2tV9o/kOYERn5YWZIM7/hwUOjO5H8X1enfD3c3o1i//9vsJru/SvOeyopZgv8OhoSkTEPGIQ7tMxfTSz3fHnaEw6kQ9BaQsKstkJg7gLMpY0iguppO0Bj2zG2rlAUXNHLBc6QwNVYsTmePQCwegTADdS+SNrOhSXLQoDNarEKUkpNogNeyrKZ0="];
+        [self.architectView setLicenseKey:[self sdkkey]];
         
         /* The Architect World can be loaded independently from the WTArchitectView rendering. NOTE: The architectWorldNavigation property is assigned at this point. The navigation object is valid until another Architect World is loaded. */
         self.architectWorldNavigation = [self.architectView loadArchitectWorldFromURL:[NSURL URLWithString:[self url]]];

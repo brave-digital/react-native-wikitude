@@ -1,6 +1,6 @@
 {
 	"name": "react-native-wikitude",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Bridge between Wikitude and React Native",
 	"main": "index.js",
 	"scripts": {

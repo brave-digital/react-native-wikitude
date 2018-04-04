@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class WikitudeActivity extends Activity {
 
@@ -37,12 +38,13 @@ public class WikitudeActivity extends Activity {
     public static final String EXTRAS_KEY_HAS_GEO = "ar_has_geo";
     public static final String EXTRAS_KEY_HAS_IR = "ar_has_ir";
     public static final String EXTRAS_KEY_HAS_INSTANT = "ar_has_instant";
+    public static final String EXTRAS_KEY_SDK_KEY = "ar_sdk_key";
 
     public static final int CULLING_DISTANCE_DEFAULT_METERS = 50 * 1000;
 
 
     protected static final String TAG = "WikitudeActivity";
-    protected static final String WIKITUDE_SDK_KEY = "UQBEIcGtB1h0jLnzvdV8fTo1uArVt1TyL5mqJZlUb2F4Tso+3r68pUXLJm1f6BBOZVGO1ANEQFS6mTXWqFH4+kq5ai4IgX/i/Gh15Dz3E/+8769Xcr1NOdnHSq0fbpgg50g6wnImduQxowv7/QQ4evqLfgC+YLjBDxDNdBNI6YtTYWx0ZWRfX99wZJUqAvOMcnRuXtyHH+dQEmTfd7Fu6htKYvsM4afGZ/9thKY5kzFCaC8OAxqWoFKQbnif7+X6j0Dq4AKBx8VtU2Wl4tZLLqi6LciUv6G1xZKa3Fa2/b4wmlxvSF+n/6+J+amgI9verwDCyTUmT9kCvtxT093QPrbjIrEbohFRCE1dBE21evZJcBM+/DZhtQcYoH9Z+6KTLHeOBrmgXEhQQTwdLWhhXj7p6Mgj3PQl/l7hdwp75AHA+PlJhegnLkTXW6Y3Iq1R4x9DhHPxK40BcspyL9scGMPK/tQ8o5qo6ReILWD3pEUSBMFJ1o9yjPgIqTHOArJmfjhW4lWru7dt2mRSXXerr2cUNh51goGRbXRT2jOZ5ww2YBzhlFrX9RpLHrD0s6yBN+TnyDj06J2KSOc0QLOgQFtMjsKpTlxIMJ8PMxBKpNS/U54prQ7gMsYrP7bQ7nTfS0A2MgYqY8CKnn/RCE5KT54LzKKQqScQOma8eLtxz2U=";
+    protected String wikitudeSDKKey = "";
 
     /**
      * holds the Wikitude SDK AR-View, this is where camera, markers, compass, 3D models etc. are rendered
@@ -98,6 +100,17 @@ public class WikitudeActivity extends Activity {
         this.hasGeolocation = extras.getBoolean(EXTRAS_KEY_HAS_GEO, false);
         this.hasImageRecognition = extras.getBoolean(EXTRAS_KEY_HAS_IR, false);
         this.hasInstantTracking = extras.getBoolean(EXTRAS_KEY_HAS_INSTANT, false);
+        this.wikitudeSDKKey = extras.getString(EXTRAS_KEY_SDK_KEY, "");
+
+	      Log.i(TAG, "Wikitude Key is "+this.wikitudeSDKKey);
+
+	      if (Objects.equals(this.wikitudeSDKKey, ""))
+	      {
+		      this.architectView = null;
+		      Toast.makeText(getApplicationContext(), "Unable to start AR without an SDK Key", Toast.LENGTH_SHORT).show();
+		      Log.e(this.getClass().getName(), "Wikitude SDK Key was empty. Please supply a SDK Key in the StartAR() function.");
+	      	return;
+	      }
 
         this.setVolumeControlStream( AudioManager.STREAM_MUSIC );
         setContentView(R.layout.activity_wikitude);
@@ -108,7 +121,7 @@ public class WikitudeActivity extends Activity {
 
 		    // pass SDK key if you have one, this one is only valid for this package identifier and must not be used somewhere else
         final ArchitectStartupConfiguration config = new ArchitectStartupConfiguration();
-        config.setLicenseKey(this.WIKITUDE_SDK_KEY);
+        config.setLicenseKey(this.wikitudeSDKKey);
         config.setFeatures(this.getFeatures());
         config.setCameraPosition(CameraSettings.CameraPosition.DEFAULT);
         config.setCameraResolution(CameraSettings.CameraResolution.AUTO);
@@ -321,10 +334,10 @@ public class WikitudeActivity extends Activity {
 
         if ( this.architectView != null ) {
 
-            // call mandatory live-cycle method of architectView
-            this.architectView.onPostCreate();
-
             try {
+		            // call mandatory live-cycle method of architectView
+		            this.architectView.onPostCreate();
+
                 // load content via url in architectView, ensure '<script src="architect://architect.js"></script>' is part of this HTML file, have a look at wikitude.com's developer section for API references
                 this.architectView.load(architectWorldURL);
                 this.architectView.setCullingDistance(CULLING_DISTANCE_DEFAULT_METERS);

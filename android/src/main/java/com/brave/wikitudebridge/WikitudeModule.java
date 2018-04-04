@@ -26,7 +26,7 @@ public class WikitudeModule extends ReactContextBaseJavaModule {
 
   @Override
   public String getName() {
-    return "WikitudeModule";
+    return "RNWikitude";
   }
 
   /*@ReactMethod
@@ -35,7 +35,7 @@ public class WikitudeModule extends ReactContextBaseJavaModule {
   }*/
 
   @ReactMethod
-  public void startAR(String architectWorldURL, boolean hasGeolocation, boolean hasImageRecognition, boolean hasInstantTracking)
+  public void startAR(String architectWorldURL, boolean hasGeolocation, boolean hasImageRecognition, boolean hasInstantTracking, String wikitudeSDKKey)
   {
     final Activity currentActivity = getCurrentActivity();
 
@@ -44,7 +44,8 @@ public class WikitudeModule extends ReactContextBaseJavaModule {
 	  intent.putExtra(WikitudeActivity.EXTRAS_KEY_AR_URL, architectWorldURL);
 	  intent.putExtra(WikitudeActivity.EXTRAS_KEY_HAS_GEO, hasGeolocation);
 	  intent.putExtra(WikitudeActivity.EXTRAS_KEY_HAS_IR, hasImageRecognition);
-	  intent.putExtra(WikitudeActivity.EXTRAS_KEY_HAS_INSTANT, hasInstantTracking);
+    intent.putExtra(WikitudeActivity.EXTRAS_KEY_HAS_INSTANT, hasInstantTracking);
+    intent.putExtra(WikitudeActivity.EXTRAS_KEY_SDK_KEY, wikitudeSDKKey);
 
 	  //launch activity
 	  currentActivity.startActivity(intent);

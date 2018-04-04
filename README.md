@@ -60,7 +60,7 @@ At the moment, iOS integration is not documented. Please contribute to update me
 
 The module exposes just one function: 
 ```typescript
-function startAR(architectWorldURL: string, hasGeolocation:boolean, hasImageRecognition:boolean, hasInstantTracking: boolean)
+function startAR(architectWorldURL: string, hasGeolocation:boolean, hasImageRecognition:boolean, hasInstantTracking:boolean, wikitudeSDKKey:string)
 ```
 This function will open a new Wikitude view on top of your current view and open the specified URL.
 
@@ -69,6 +69,6 @@ import Wikitude from 'react-native-wikitude';
 
 const onButtonPress = () =>
 {
-	Wikitude.startAR('https://yourserver.com/yourwikitudestudioproject/', true, true, true)
+	Wikitude.startAR('https://yourserver.com/yourwikitudestudioproject/', true, true, true, "YourSDKKey")
 };
 ```
