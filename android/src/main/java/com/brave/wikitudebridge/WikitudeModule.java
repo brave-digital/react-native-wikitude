@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.Toast;
-import android.util.Log;
 
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -47,8 +46,6 @@ public class WikitudeModule extends ReactContextBaseJavaModule {
 	  intent.putExtra(WikitudeActivity.EXTRAS_KEY_HAS_IR, hasImageRecognition);
     intent.putExtra(WikitudeActivity.EXTRAS_KEY_HAS_INSTANT, hasInstantTracking);
     intent.putExtra(WikitudeActivity.EXTRAS_KEY_SDK_KEY, wikitudeSDKKey);
-
-    Log.i("WikitudeModule", "startAR called. Loading "+architectWorldURL);
 
 	  //launch activity
 	  currentActivity.startActivity(intent);

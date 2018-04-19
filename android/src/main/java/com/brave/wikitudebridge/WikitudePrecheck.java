@@ -5,9 +5,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.widget.Toast;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.wikitude.architect.ArchitectView;
 import com.wikitude.common.permission.PermissionManager;
@@ -18,19 +19,19 @@ public class WikitudePrecheck extends Activity {
 
 	private PermissionManager mPermissionManager;
 
+	protected static final String TAG = "WikitudePrecheck";
+
 	private String architectWorldURL = "";
 	private String sdkKey = "";
 	private boolean hasGeolocation = false;
 	private boolean hasImageRecognition = false;
 	private boolean hasInstantTracking = false;
-	private boolean intentActive = false;
-
-	protected static final String TAG = "WikitudePrecheck";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_wikitude_precheck);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
 
 		mPermissionManager = ArchitectView.getPermissionManager();
 
@@ -51,12 +52,12 @@ public class WikitudePrecheck extends Activity {
 		mPermissionManager.checkPermissions(WikitudePrecheck.this, permissions, PermissionManager.WIKITUDE_PERMISSION_REQUEST, new PermissionManager.PermissionManagerCallback() {
 			@Override
 			public void permissionsGranted(int requestCode) {
+				Log.i(TAG, "Permission Granted, proceeding to start wikitude intent.");
 				startWikitudeIntent();
 			}
 
 			@Override
 			public void permissionsDenied(String[] deniedPermissions) {
-				Log.e(TAG, "Unable to start AR - Required permissions were denied.");
 				Toast.makeText(WikitudePrecheck.this, "The following permissions are required to enable an AR experience: " + Arrays.toString(deniedPermissions), Toast.LENGTH_SHORT).show();
 			}
 
@@ -88,11 +89,6 @@ public class WikitudePrecheck extends Activity {
 
 	private void startWikitudeIntent()
 	{
-		if (this.intentActive) {
-			Log.w(TAG, "startWikitudeIntent - Failed because the intent is already active!");
-			return;
-		}
-
 		final Intent intent = new Intent(this, WikitudeActivity.class);
 
 		intent.putExtra(WikitudeActivity.EXTRAS_KEY_AR_URL, this.architectWorldURL);
@@ -103,8 +99,6 @@ public class WikitudePrecheck extends Activity {
 
 		//launch activity
 		this.startActivityForResult(intent, 0xe110);
-		this.intentActive = true;
-		Log.i(TAG, "Starting WikitudeIntent.");
 	}
 
 	@Override
@@ -112,12 +106,12 @@ public class WikitudePrecheck extends Activity {
 	{
 		super.onActivityResult(aRequestCode, aResultCode, aData);
 
-		Log.i(TAG, "Got Activity Result - Request: " + Integer.toHexString(aRequestCode) + " Result: "+ Integer.toHexString(aResultCode));
+		Log.i(TAG, "Got activity result code "+Integer.toString(aResultCode) + "");
 
 		if (aRequestCode == 0xe110)
 		{
+			Log.i(TAG, "Exiting.");
 			this.finish();
-			this.intentActive = false;
 		}
 
 	}

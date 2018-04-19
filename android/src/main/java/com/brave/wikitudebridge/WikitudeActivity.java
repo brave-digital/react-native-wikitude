@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.hardware.SensorManager;
@@ -94,6 +95,8 @@ public class WikitudeActivity extends Activity {
 
 	      this.thisActivity = this;
 
+	      this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+
         Bundle extras = getIntent().getExtras();
 
         this.architectWorldURL = extras.getString(EXTRAS_KEY_AR_URL);
@@ -159,41 +162,41 @@ public class WikitudeActivity extends Activity {
 
         if (this.hasGeolocation) {
 
-          /*
-            // listener passed over to locationProvider, any location update is handled here
-            this.locationListener = new LocationListener() {
+//
+//            // listener passed over to locationProvider, any location update is handled here
+//            this.locationListener = new LocationListener() {
+//
+//                @Override
+//                public void onStatusChanged( String provider, int status, Bundle extras ) {
+//                }
+//
+//                @Override
+//                public void onProviderEnabled( String provider ) {
+//                }
+//
+//                @Override
+//                public void onProviderDisabled( String provider ) {
+//                }
+//
+//                @Override
+//                public void onLocationChanged( final Location location ) {
+//                    // forward location updates fired by LocationProvider to architectView, you can set lat/lon from any location-strategy
+//                    if (location!=null) {
+//                        // sore last location as member, in case it is needed somewhere (in e.g. your adjusted project)
+//                        AbstractArchitectCamActivity.this.lastKnownLocaton = location;
+//                        if ( AbstractArchitectCamActivity.this.architectView != null ) {
+//                            // check if location has altitude at certain accuracy level & call right architect method (the one with altitude information)
+//                            if ( location.hasAltitude() && location.hasAccuracy() && location.getAccuracy()<7) {
+//                                AbstractArchitectCamActivity.this.architectView.setLocation( location.getLatitude(), location.getLongitude(), location.getAltitude(), location.getAccuracy() );
+//                            } else {
+//                                AbstractArchitectCamActivity.this.architectView.setLocation( location.getLatitude(), location.getLongitude(), location.hasAccuracy() ? location.getAccuracy() : 1000 );
+//                            }
+//                        }
+//                    }
+//                }
+//            };
 
-                @Override
-                public void onStatusChanged( String provider, int status, Bundle extras ) {
-                }
 
-                @Override
-                public void onProviderEnabled( String provider ) {
-                }
-
-                @Override
-                public void onProviderDisabled( String provider ) {
-                }
-
-                @Override
-                public void onLocationChanged( final Location location ) {
-                    // forward location updates fired by LocationProvider to architectView, you can set lat/lon from any location-strategy
-                    if (location!=null) {
-                        // sore last location as member, in case it is needed somewhere (in e.g. your adjusted project)
-                        AbstractArchitectCamActivity.this.lastKnownLocaton = location;
-                        if ( AbstractArchitectCamActivity.this.architectView != null ) {
-                            // check if location has altitude at certain accuracy level & call right architect method (the one with altitude information)
-                            if ( location.hasAltitude() && location.hasAccuracy() && location.getAccuracy()<7) {
-                                AbstractArchitectCamActivity.this.architectView.setLocation( location.getLatitude(), location.getLongitude(), location.getAltitude(), location.getAccuracy() );
-                            } else {
-                                AbstractArchitectCamActivity.this.architectView.setLocation( location.getLatitude(), location.getLongitude(), location.hasAccuracy() ? location.getAccuracy() : 1000 );
-                            }
-                        }
-                    }
-                }
-            };
-
-            */
             this.locationListener = null;
 
         } else {
@@ -234,13 +237,7 @@ public class WikitudeActivity extends Activity {
                 try {
                     /*
                     switch (jsonObject.getString("action")) {
-                        case "present_poi_details":
-                            final Intent poiDetailIntent = new Intent(SampleCamActivity.this, SamplePoiDetailActivity.class);
-                            poiDetailIntent.putExtra(SamplePoiDetailActivity.EXTRAS_KEY_POI_ID, jsonObject.getString("id"));
-                            poiDetailIntent.putExtra(SamplePoiDetailActivity.EXTRAS_KEY_POI_TITILE, jsonObject.getString("title"));
-                            poiDetailIntent.putExtra(SamplePoiDetailActivity.EXTRAS_KEY_POI_DESCR, jsonObject.getString("description"));
-                            SampleCamActivity.this.startActivity(poiDetailIntent);
-                            break;
+
 
                         case "capture_screen":
                             SampleCamActivity.this.architectView.captureScreen(ArchitectView.CaptureScreenCallback.CAPTURE_MODE_CAM_AND_WEBVIEW, new ArchitectView.CaptureScreenCallback() {
@@ -395,13 +392,14 @@ public class WikitudeActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
 
         // call mandatory live-cycle method of architectView
         if ( this.architectView != null ) {
             this.architectView.clearCache();
             this.architectView.onDestroy();
         }
+
+	    super.onDestroy();
     }
 
     @Override
