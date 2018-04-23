@@ -10,7 +10,7 @@ First install the module via npm and link it up:
 ```bash
 npm install react-native-wikitude
 
-react-native link
+react-native link react-native-wikitude
 ```
 After that completes, you will need to do additional steps for each platform you are supporting:
 
@@ -50,7 +50,18 @@ After that completes, you will need to do additional steps for each platform you
 	```
 4. In your `android/app/src/main/AndroidManifest.xml` file, remove the `android:allowBackup="false"` attribute from the `application` node. If you want to set allowBackup, follow the method [here](https://github.com/OfficeDev/msa-auth-for-android/issues/21).
 	
-And thats it. The `react-native link` command should have taken care of installing the react-native-wikitude bridge into your project so you shouldnt need to modify your gradle files.
+5. Optionally: In your `android/build.gradle` file, define the versions of the standard libraries you'd like WikitudeBridge to use:
+	```gradle
+	...
+	ext {
+		// dependency versions
+		compileSdkVersion = "<Your compile SDK version>" // default: 27
+		buildToolsVersion = "<Your build tools version>" // default: "27.0.3"
+		targetSdkVersion = "<Your target SDK version>" // default: 27
+		constraintLayoutVersion = "<Your com.android.support.constraint:constraint-layout version>" //default "1.0.2"
+	}
+	...
+	```
 
 ### iOS
 At the moment, iOS integration is not documented. Please contribute to update me! 
