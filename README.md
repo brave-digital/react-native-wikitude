@@ -1,3 +1,5 @@
+# React Native Wikitude Bridge 2.0.3
+
 # Introduction 
 This is a React Native bridge module for [Wikitude](https://www.wikitude.com/) which provides a simple integration to the Wikitude AR SDK.
 At the moment, the module only supports loading AR experiences from Wikitude Studio URLs. These can be local or online locations.
@@ -48,7 +50,7 @@ After that completes, you will need to do additional steps for each platform you
 			...
 		}
 	```
-4. In your `android/app/src/main/AndroidManifest.xml` file, remove the `android:allowBackup="false"` attribute from the `application` node. If you want to set allowBackup, follow the method [here](https://github.com/OfficeDev/msa-auth-for-android/issues/21).
+4. In your `android/app/src/main/AndroidManifest.xml` file, If you have it, remove the `android:allowBackup="false"` attribute from the `application` node. If you want to set allowBackup, follow the method [here](https://github.com/OfficeDev/msa-auth-for-android/issues/21).
 	
 5. Optionally: In your `android/build.gradle` file, define the versions of the standard libraries you'd like WikitudeBridge to use:
 	```gradle

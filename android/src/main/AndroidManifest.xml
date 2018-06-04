@@ -37,8 +37,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application android:resizeableActivity="false">
-        <activity android:name=".WikitudeActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:parentActivityName=".WikitudePrecheck"/>
-        <activity android:name=".WikitudePrecheck" android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity android:name=".WikitudeActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:keepScreenOn="true" android:parentActivityName=".WikitudePrecheck"/>
+        <activity android:name=".WikitudePrecheck" android:configChanges="orientation|keyboardHidden|screenSize" android:keepScreenOn="true"/>
     </application>
 
 </manifest>
