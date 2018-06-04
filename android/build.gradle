@@ -31,5 +31,5 @@ dependencies {
 	//compile fileTree(include: ['*.jar'], dir: 'libs')
 	implementation project(':wikitudesdk')
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.android.support.constraint:constraint-layout:$constraintLayoutVersion'
+    implementation 'com.android.support.constraint:constraint-layout:' + constraintLayoutVersion
 }

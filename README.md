@@ -1,4 +1,4 @@
-# React Native Wikitude Bridge 2.0.3
+# React Native Wikitude Bridge
 
 # Introduction 
 This is a React Native bridge module for [Wikitude](https://www.wikitude.com/) which provides a simple integration to the Wikitude AR SDK.
@@ -85,3 +85,22 @@ const onButtonPress = () =>
 	Wikitude.startAR('https://yourserver.com/yourwikitudestudioproject/', true, true, true, "YourSDKKey")
 };
 ```
+
+
+
+## ChangeLog
+
+- 2.0.4
+	Minor Gradle file issue fixed.
+
+- 2.0.3
+	Keep screen on in Android
+
+- 2.0.2
+	Fixed errors, added SDK Key field
+
+- 2.0.1
+	Fixed android build process
+
+- 2.0.0
+	First Commit
