@@ -1,10 +1,10 @@
 # React Native Wikitude Bridge
 
-# Introduction 
+# Introduction
 This is a React Native bridge module for [Wikitude](https://www.wikitude.com/) which provides a simple integration to the Wikitude AR SDK.
 At the moment, the module only supports loading AR experiences from Wikitude Studio URLs. These can be local or online locations.
 You would normally export the files from Wikitude Studio and then host them in a directory somewhere yourself. Point your app to that URL and it should load your project.
- 
+
 ## How to install
 
 First install the module via npm and link it up:
@@ -18,19 +18,19 @@ After that completes, you will need to do additional steps for each platform you
 
 #### Android
 
-1. Unfortunately the gradle system does not seem to allow [sub-linking aar files](https://issuetracker.google.com/issues/36971586). To get around this you will have to install the `wikitudesdk` folder manually into each project you plan to use this module with. 
+1. Unfortunately the gradle system does not seem to allow [sub-linking aar files](https://issuetracker.google.com/issues/36971586). To get around this you will have to install the `wikitudesdk` folder manually into each project you plan to use this module with.
 
-	Copy the `wikitudesdk` folder from the `node-modules/react-native-wikitude/android` folder into your project's `android` folder: 
+	Copy the `wikitudesdk` folder from the `node-modules/react-native-wikitude/android` folder into your project's `android` folder:
 
-	On Mac / Linux: 
-	
+	On Mac / Linux:
+
 	```bash
 	cd YourReactNativeProject
 	cp -R ./node_modules/react-native-wikitude/android/wikitudesdk ./android/wikitudesdk
 	```
-	
+
 	or on Windows:
-	
+
 	```dos
 	cd YourReactNativeProject
 	xcopy node_modules\react-native-wikitude\android\wikitudesdk android\wikitudesdk /E
@@ -40,7 +40,7 @@ After that completes, you will need to do additional steps for each platform you
 	```gradle
 	include ':wikitudesdk', ':react-native-wikitude'
 	```
-	
+
 3. In your `android/build.gradle` file, modify the minimum SDK version to at least version 19:
 	```gradle
 	android {
@@ -51,7 +51,7 @@ After that completes, you will need to do additional steps for each platform you
 		}
 	```
 4. In your `android/app/src/main/AndroidManifest.xml` file, If you have it, remove the `android:allowBackup="false"` attribute from the `application` node. If you want to set allowBackup, follow the method [here](https://github.com/OfficeDev/msa-auth-for-android/issues/21).
-	
+
 5. Optionally: In your `android/build.gradle` file, define the versions of the standard libraries you'd like WikitudeBridge to use:
 	```gradle
 	...
@@ -66,12 +66,16 @@ After that completes, you will need to do additional steps for each platform you
 	```
 
 ### iOS
-At the moment, iOS integration is not documented. Please contribute to update me! 
 
+React native linker should handle all the linking for you, or you can manually link the FrameWork if you want it in a different location as long as you change the Framework Search Path to the correct path in Xcode.
+
+Also make sure the bridge is after React Native projects in your build order.
+
+The JavaScript Framework Version 7.2 is included in this repository.
 
 ## Usage
 
-The module exposes just one function: 
+The module exposes just one function:
 ```typescript
 function startAR(architectWorldURL: string, hasGeolocation:boolean, hasImageRecognition:boolean, hasInstantTracking:boolean, wikitudeSDKKey:string)
 ```
